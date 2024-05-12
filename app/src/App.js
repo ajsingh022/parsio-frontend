@@ -10,7 +10,7 @@ function App() {
     setButtonText("Parsing Receipt...");
     e.preventDefault();
     formData.append("file", file);
-    const url = "http://localhost:4000/extracttextfromimages";
+    const url = "http://localhost:4000/extracttextfromimages"; //http://localhost:4000/extracttextfromimages https://parsio-backend-4.onrender.com/extracttextfromimages
     fetch(url, {
       method: "POST",
       body: formData,
@@ -24,13 +24,16 @@ function App() {
   };
   console.log(parsedData);
 
-  const prefinalData = parsedData?.data?.parsed?.map((elm) =>
-    elm.name === "Items" ? elm.value : []
-  );
+  const prefinalData = parsedData?.data?.json?.items;
+  console.log(prefinalData);
+  const string = prefinalData.map((elm) => {
+    elm._source;
+  });
+  // const products = prefinalData.map((elm=>elm.description))
   const finalData =
     prefinalData?.length > 0
       ? prefinalData[0].values.map((elm) => {
-          return elm?.content;
+          return <li>elm?.content</li>;
         })
       : [];
   console.log(finalData);
@@ -47,12 +50,11 @@ function App() {
     "ECLPS",
     "ECLP",
   ];
-  const string =
-    finalData?.length > 0 ? finalData?.map((elm) => <li>{elm}</li>) : "";
-
   const success =
     finalData.length > 0
-      ? keywords.filter((elm) => (finalData.includes(elm) ? "success" : "fail"))
+      ? keywords.filter((elm) => finalData.includes(elm))
+        ? "pass"
+        : "fail"
       : "fail";
 
   return (
