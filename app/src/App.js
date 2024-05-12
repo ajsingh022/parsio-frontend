@@ -24,19 +24,20 @@ function App() {
   };
   console.log(parsedData);
 
-  const prefinalData = parsedData?.data?.json?.items;
+  const prefinalData = parsedData?.data?.json?.Items;
   console.log(prefinalData);
-  const string = prefinalData?.map((elm) => {
+  const finalData = prefinalData?.map((elm) => {
     return elm._source;
   });
+  const string = finalData?.map((elm) => {return <li>{elm}</li>})
   // const products = prefinalData.map((elm=>elm.description))
-  const finalData =
-    prefinalData?.length > 0
-      ? prefinalData[0].values.map((elm) => {
-          return <li>elm?.content</li>;
-        })
-      : [];
-  console.log(finalData);
+  // const finalData =
+  // //   prefinalData?.length > 0
+  // //     ? prefinalData[0].values.map((elm) => {
+  // //         return <li>elm?.content</li>;
+  // //       })
+  // //     : [];
+  // // console.log(finalData);
   const keywords = [
     "Eclipsemints",
     "eclp",
@@ -51,8 +52,8 @@ function App() {
     "ECLP",
   ];
   const success =
-    finalData.length > 0
-      ? keywords.filter((elm) => finalData.includes(elm))
+    finalData?.length > 0
+      ? keywords.filter((elm) => finalData?.includes(elm))
         ? "pass"
         : "fail"
       : "fail";
