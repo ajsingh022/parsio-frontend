@@ -10,7 +10,7 @@ function App() {
     setButtonText("Parsing Receipt...");
     e.preventDefault();
     formData.append("file", file);
-    const url = "http://localhost:4000/extracttextfromimages"; //http://localhost:4000/extracttextfromimages https://parsio-backend-4.onrender.com/extracttextfromimages
+    const url = "https://parsio-backend-4.onrender.com/extracttextfromimages"; //http://localhost:4000/extracttextfromimages https://parsio-backend-4.onrender.com/extracttextfromimages
     fetch(url, {
       method: "POST",
       body: formData,
