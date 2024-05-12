@@ -26,7 +26,7 @@ function App() {
 
   const prefinalData = parsedData?.data?.json?.items;
   console.log(prefinalData);
-  const string = prefinalData.map((elm) => {
+  const string = prefinalData?.map((elm) => {
     return elm._source;
   });
   // const products = prefinalData.map((elm=>elm.description))
