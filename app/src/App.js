@@ -52,6 +52,7 @@ function App() {
     "ECLIPSEMINT",
     "ECLPS",
     "ECLP",
+    "WRIGLEYS ECLIPSEMINT"
   ];
 
   const filteredData = finalData?.filter((elm) => keywords.includes(elm));
