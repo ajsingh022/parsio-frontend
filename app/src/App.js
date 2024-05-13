@@ -53,12 +53,16 @@ function App() {
     "ECLPS",
     "ECLP",
   ];
+
+  const filteredData = finalData?.filter((elm) => keywords.includes(elm));
+  console.log(filteredData);
   const success =
     finalData?.length > 0
       ? finalData?.filter((elm) => keywords.includes(elm)).length > 0
         ? "EclipseMint purchase detected"
         : "No EclipseMint purchase detected"
       : "fail";
+      
 
   return (
     <div className="App">
