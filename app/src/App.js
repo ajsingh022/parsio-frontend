@@ -29,7 +29,9 @@ function App() {
   const finalData = prefinalData?.map((elm) => {
     return elm._source;
   });
-  const string = finalData?.map((elm) => {return <li>{elm}</li>})
+  const string = finalData?.map((elm) => {
+    return <li>{elm}</li>;
+  });
   // const products = prefinalData.map((elm=>elm.description))
   // const finalData =
   // //   prefinalData?.length > 0
@@ -53,7 +55,7 @@ function App() {
   ];
   const success =
     finalData?.length > 0
-      ? keywords.filter((elm) => finalData?.includes(elm))
+      ? (keywords.filter((elm) => finalData?.includes(elm)).length>0)
         ? "pass"
         : "fail"
       : "fail";
