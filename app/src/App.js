@@ -57,7 +57,7 @@ function App() {
 
   const filteredData = finalData?.filter((elm) => keywords.includes(elm));
   console.log(filteredData);
-  keywords.contains(filteredData.map((elm) => elm));
+  // keywords.contains(filteredData.map((elm) => elm));
   const success =
     finalData?.length > 0
       ? finalData?.filter((elm) =>
