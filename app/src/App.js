@@ -52,18 +52,22 @@ function App() {
     "ECLIPSEMINT",
     "ECLPS",
     "ECLP",
-    "WRIGLEYS ECLIPSEMINT"
+    "WRIGLEYS ECLIPSEMINT",
   ];
 
   const filteredData = finalData?.filter((elm) => keywords.includes(elm));
   console.log(filteredData);
+  keywords.contains(filteredData.map((elm) => elm));
   const success =
     finalData?.length > 0
-      ? finalData?.filter((elm) => keywords.includes(elm)).length > 0
+      ? finalData?.filter((elm) =>
+          keywords.some((keyword) =>
+            elm.toLowerCase().includes(keyword.toLowerCase())
+          )
+        ).length > 0
         ? "EclipseMint purchase detected"
         : "No EclipseMint purchase detected"
       : "fail";
-      
 
   return (
     <div className="App">
