@@ -55,9 +55,9 @@ function App() {
   ];
   const success =
     finalData?.length > 0
-      ? (keywords.filter((elm) => finalData?.includes(elm)).length>0)
-        ? "pass"
-        : "fail"
+      ? finalData?.filter((elm) => keywords.includes(elm)).length > 0
+        ? "EclipseMint purchase detected"
+        : "No EclipseMint purchase detected"
       : "fail";
 
   return (
