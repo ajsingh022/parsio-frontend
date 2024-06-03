@@ -1,8 +1,9 @@
 .App {
   text-align: center;
-  
+
 }
-.form{
+
+.form {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -13,6 +14,33 @@
   height: 40vmin;
   pointer-events: none;
 }
+
+.progress-bar {
+  left: 40%;
+  position: absolute;
+  width: 250px;
+  top: 50px;
+}
+
+.success {
+  font-weight: bold;
+  font-size: xxx-large;
+  color: green;
+}
+
+.fail {
+  font-weight: bold;
+  font-size: xxx-large;
+  color: red;
+}
+
+.yellow {
+  font-weight: bold;
+  font-size: large;
+  color: black;
+
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -39,6 +67,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

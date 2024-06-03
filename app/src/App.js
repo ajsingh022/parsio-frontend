@@ -1,12 +1,17 @@
 import "./App.css";
 import { useState } from "react";
+import ProgressBar from "./ProgressBar";
 function App() {
   const [file, setFile] = useState({});
   const [buttonText, setButtonText] = useState("Submit");
   const [parsedData, setParsedData] = useState({});
+  const [progressBar, setProgressBar] = useState(false);
+  const [progressValue, setProgressValue] = useState(10);
+
   let formData = new FormData();
   const submit = async (e) => {
     setButtonText("Parsing Receipt...");
+    setProgressBar(true);
     e.preventDefault();
     formData.append("file", file);
     const url = "http://localhost:4000/extracttextfromimages"; //http://localhost:4000/extracttextfromimages https://parsio-backend-4.onrender.com/extracttextfromimages
@@ -17,7 +22,10 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setButtonText("Submit");
+        setProgressValue(100);
+        setProgressBar(false);
         setParsedData(data);
+        // setProgressBar(false);
       })
       .catch((err) => console.log(err));
   };
@@ -58,15 +66,21 @@ function App() {
   console.log(filteredData);
   // keywords.contains(filteredData.map((elm) => elm));
   const success =
-    finalData?.length > 0
-      ? finalData?.filter((elm) =>
-          keywords.some((keyword) =>
-            elm.toLowerCase().includes(keyword.toLowerCase())
-          )
-        ).length > 0
-        ? "EclipseMint purchase detected"
-        : "No EclipseMint purchase detected"
-      : "fail";
+    finalData?.length > 0 ? (
+      finalData?.filter((elm) =>
+        keywords.some((keyword) =>
+          elm.toLowerCase().includes(keyword.toLowerCase())
+        )
+      ).length > 0 ? (
+        <div className="success">EclipseMint purchase detected</div>
+      ) : (
+        <div className="fail">No EclipseMint purchase detected</div>
+      )
+    ) : (
+      <div className="yellow">Please upload the image</div>
+    );
+
+  function handleProgressBar() {}
 
   return (
     <div className="App">
@@ -81,6 +95,10 @@ function App() {
           {buttonText}
         </button>
       </form>
+      <div className="progress-bar">
+        {progressBar ? <ProgressBar value={progressValue} /> : null}
+      </div>
+
       <ol>{string}</ol>
       <div>{success}</div>
     </div>
