@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-textract": "^3.596.0",
     "axios": "^1.6.8",
     "create-react-app": "^5.0.1"
   }

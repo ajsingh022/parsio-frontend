@@ -1,12 +1,14 @@
 import "./App.css";
 import { useState } from "react";
 import ProgressBar from "./ProgressBar";
+import { TextractClient, ListAdaptersCommand } from "@aws-sdk/client-textract";
 function App() {
   const [file, setFile] = useState({});
   const [buttonText, setButtonText] = useState("Submit");
   const [parsedData, setParsedData] = useState({});
   const [progressBar, setProgressBar] = useState(false);
   const [progressValue, setProgressValue] = useState(10);
+  const [dataAWS, setDataAWS] = useState();
 
   let formData = new FormData();
   const submit = async (e) => {
@@ -14,18 +16,26 @@ function App() {
     setProgressBar(true);
     e.preventDefault();
     formData.append("file", file);
-    const url = "http://localhost:4000/extracttextfromimages"; //http://localhost:4000/extracttextfromimages https://parsio-backend-4.onrender.com/extracttextfromimages
+    const url = "http://localhost:5000/AWSupload"; //http://localhost:4000/extracttextfromimages https://parsio-backend-4.onrender.com/extracttextfromimages
     fetch(url, {
       method: "POST",
       body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setButtonText("Submit");
         setProgressValue(100);
         setProgressBar(false);
         setParsedData(data);
-        // setProgressBar(false);
+        const awsData = data.ExpenseDocuments[0].Blocks.map((block) => {
+          if (block.BlockType === "LINE") {
+            return block.Text;
+          }
+          return "na";
+        });
+        console.log(awsData.toString());
+        setDataAWS(awsData);
       })
       .catch((err) => console.log(err));
   };
@@ -36,7 +46,7 @@ function App() {
   const finalData = prefinalData?.map((elm) => {
     return elm._source;
   });
-  const string = finalData?.map((elm) => {
+  const string = dataAWS?.map((elm) => {
     return <li>{elm}</li>;
   });
   // const products = prefinalData.map((elm=>elm.description))
@@ -66,8 +76,8 @@ function App() {
   console.log(filteredData);
   // keywords.contains(filteredData.map((elm) => elm));
   const success =
-    finalData?.length > 0 ? (
-      finalData?.filter((elm) =>
+    dataAWS?.length > 0 ? (
+      dataAWS?.filter((elm) =>
         keywords.some((keyword) =>
           elm.toLowerCase().includes(keyword.toLowerCase())
         )
